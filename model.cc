@@ -100,6 +100,15 @@ vector<vector<double> > id(size_t n) {
 	return res ;
 }
 
+std::ostream& operator<<(std::ostream& os, std::vector<double> const& v) {
+  os << "(" ;
+  for(size_t n(0); n<v.size()-1; n++) {
+    os << v[n] << "; " ; 
+  }
+      os << v[v.size()-1] << ")" << endl ;
+      return os ;
+}
+
 ostream& operator<<(ostream& os, vector<vector<double> > const& v) {
 	for(size_t i(0); i<v.size();i++) {
 		for(size_t j(0); j<v[0].size();j++) {
@@ -145,6 +154,14 @@ vector<vector<double> > operator+(vector<vector<double> > A, vector<vector<doubl
 	
 }
 
+vector<double> operator*(double const& r, vector<double> a) {
+  vector<double> res(a.size()) ;
+  for(size_t n(0); n<a.size(); n++) {
+    res[n]=r*a[n] ; 
+  }
+  return res ; 
+}
+
 vector<vector<double> > operator*(double const& r, vector<vector<double> > A) {
 	vector<vector<double> > B(A.size(), vector<double>(A[0].size(), 0)) ;
 	for(size_t i(0);i<B.size();i++) {
@@ -166,6 +183,14 @@ double scalar_prod(std::vector<double> a, std::vector<double> b) {
 		}
 	}
 	return res ;
+}
+
+double norm(std::vector<double> a) {
+  double res(0) ;
+  for(size_t n(0); n < a.size(); n++) {
+    res += a[n]*a[n] ;
+  }
+  return sqrt(res);
 }
 
 vector<vector<double> > matmul(vector<vector<double> > A, vector<vector<double> > B) {
@@ -345,12 +370,32 @@ double calc_partial_derivative(vector<double> const &delta, vector<vector<double
 //step of gradient descent
 void optimizer_step(vector<double> const &delta, vector<vector<double> > const &initpayoff,
 					vector<vector<vector<double> > > &probaindiv, int niter, double lr) {
-	//define i,j,g
+  int count(0) ;
+  vector<double> gradient_size(0) ;
+  double gradient_cumul(0) ; 
+  while(count < 10000) {
+    //define i,j,g
 	size_t i = rand() % NPLAYERS ;
 	size_t j1 = (i+1) % NPLAYERS ;
 	size_t j2 = (i+2) % NPLAYERS ;
 	size_t g = rand() % 8 ;
-	probaindiv[i][g][j1] += lr*calc_partial_derivative(delta, initpayoff, probaindiv, g, i, j1, niter) ;
-	probaindiv[i][g][j2] += lr*calc_partial_derivative(delta, initpayoff, probaindiv, g, i, j2, niter) ;
+	vector<double> grad(2);
+	grad[0] = calc_partial_derivative(delta, initpayoff, probaindiv, g, i, j1, niter) ;
+	grad[1] = calc_partial_derivative(delta, initpayoff, probaindiv, g, i, j2, niter) ;
+	//we have to prevent the parameters going outside the triangle region x+y <= 1, x,y>=0
+	double pos1 = probaindiv[i][g][j1] ;
+	double pos2 = probaindiv[i][g][j2] ;
+	vector<double> update = ((min(lr, min(abs(pos1), min(abs(pos2), abs(1-pos1-pos2)/sqrt(2)))))/(pow(10, -8) + norm(grad))) * grad ;   
+	probaindiv[i][g][j1] += update[0] ;
+	probaindiv[i][g][j2] += update[1] ;
 	probaindiv[i][g][i] = 1 - probaindiv[i][g][j1] - probaindiv[i][g][j2] ;
+	gradient_cumul += norm(update) ;
+	count++ ;
+	if(count%100 == 0) {
+	    gradient_size.push_back(gradient_cumul) ;
+	    gradient_cumul = 0 ;
+	  }
+  }
+  cout << "size of the gradients : " << gradient_size << endl ;
+
 }

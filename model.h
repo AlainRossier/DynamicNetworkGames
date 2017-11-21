@@ -12,6 +12,8 @@ bool is_network(size_t g, size_t i, size_t j) ;
 
 std::vector<std::vector<double> > id(size_t n) ;
 
+std::ostream& operator<<(std::ostream& os, std::vector<double> const& v) ;
+
 std::ostream& operator<<(std::ostream& os, std::vector<std::vector<double> > const& v) ;
 
 std::ostream& operator<<(std::ostream& os, std::vector<std::vector<std::vector<double> > > const& v) ;
@@ -20,9 +22,13 @@ std::ostream& operator<<(std::ostream& os, std::vector<std::vector<size_t> > con
 
 std::vector<std::vector<double> > operator+(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) ;
 
+std::vector<double> operator*(double const& r, std::vector<double> a) ;
+
 std::vector<std::vector<double> > operator*(double const& r, std::vector<std::vector<double> > A) ;
 
 double scalar_prod(std::vector<double> a, std::vector<double> b) ;
+
+double norm(std::vector<double> a) ;
 
 std::vector<std::vector<double> > matmul(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) ;
 

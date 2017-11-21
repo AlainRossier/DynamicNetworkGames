@@ -59,5 +59,6 @@ int main() {
 		
 	optimizer_step(delta, initpayoff, probaindiv, 10, 0.01) ;
 	cout << probaindiv << endl ;
+
 	return 0 ;
 }
