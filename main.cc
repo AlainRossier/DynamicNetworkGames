@@ -56,7 +56,9 @@ int main() {
 		} ;
 	
 	//cout << calc_partial_derivative(delta, initpayoff, probaindiv, 3, 2, 1, 10) << endl ;
-		
+
+	initprobaindiv(probaindiv) ;
+	cout << probaindiv << endl ;
 	optimizer_step(delta, initpayoff, probaindiv, 10, 0.01) ;
 	cout << probaindiv << endl ;
 

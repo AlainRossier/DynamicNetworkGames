@@ -50,6 +50,12 @@ std::vector<std::vector<double> > obtainP(std::vector<std::vector<std::vector<do
 std::vector<std::vector<double> > estimpayoff(std::vector<double> const &delta, std::vector<std::vector<double> > const &initpayoff,
 											  std::vector<std::vector<double> > const &Prob) ;
 
+//generates a positive vector of L1 norm = 1 in R^n, n>=2.
+std::vector<double> initproba(int n) ;
+
+//randomly initialize the vector of individual probabilities
+void initprobaindiv(std::vector<std::vector<std::vector<double> > > &probaindiv) ;
+
 //compute the derivative of U_i(g, a) with respect to a^{ig}_j
 double calc_partial_derivative(std::vector<double> const &delta, std::vector<std::vector<double> > const &initpayoff, 
 							   std::vector<std::vector<std::vector<double> > > const & probaindiv, size_t g, size_t i, size_t j, int niter) ;
@@ -58,4 +64,3 @@ void optimizer_step(std::vector<double> const &delta, std::vector<std::vector<do
 					std::vector<std::vector<std::vector<double> > > &probaindiv, int niter, double lr) ;
 
 #endif
-
