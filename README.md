@@ -10,5 +10,5 @@ To run the code (under Linux) :
 
 To run the code under Windows, execute main.cc in DevC++.
 
-[1] Caleb M. Koch and A. Rossier, A characterization of cooperation in dynamic network games. 
+[1]  Caleb M. Koch and A. Rossier, A characterization of cooperation in dynamic network games. 
 In Proceedings of the 14th Workshop on the Economics of Networks, Systems and Computation, 2019
