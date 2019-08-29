@@ -1,6 +1,5 @@
-﻿# DynamicNetworkGames
-This project provides the code to optimize a 3-person dynamic network game.
-The goal is to find one (or several) MPE for the network game.
+﻿# Dynamic Network Games
+This repository provides the source code to find Markov perfect equilibria in a dynamic network game with 3 agents, as defined in [1]
 
 To run the code (under Linux) : 
 >>> rm *.o
@@ -10,3 +9,5 @@ To run the code (under Linux) :
 >>> ./countries
 
 To run the code under Windows, execute main.cc in DevC++.
+
+[1] Caleb M. Koch and A. Rossier, A characterization of cooperation in dynamic network games. In Proceedings of the 14th Workshop on the Economics of Networks, Systems and Computation, 2019
