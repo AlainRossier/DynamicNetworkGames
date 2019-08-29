@@ -1,5 +1,5 @@
 ﻿# Dynamic Network Games
-This repository provides the source code to find Markov perfect equilibria in a dynamic network game with 3 agents, as defined in [1]
+This repository provides the source code to find Markov perfect equilibria in a dynamic network game with 3 agents, as defined in [1].
 
 To run the code (under Linux) : 
 >>> rm *.o
